@@ -1,19 +1,33 @@
+# Author: john jensen (john@z2live.com)
+
 import sys
 import getopt
 
-import codecs
 import unicodedata
 import markdown2
 
-def markdown_to_google_docs_script_entry(input_filename, debugging=False):
-    markdown_to_google_docs(input_filename, verbose_output=debugging,
+def markdown_to_google_sites_entry(input_filename, debugging=False):
+    markdown_to_google_sites(input_filename, verbose_output=debugging,
                             print_markdown_html=debugging)
 
-def markdown_to_google_docs(input_filename, print_markdown_html=False,
-                            verbose_output=False):
-                  
-    def cleanup_string_for_console(string):
-        return unicodedata.normalize('NFKD', string).encode('ascii', 'ignore')
+def markdown_to_google_sites(input_filename, print_markdown_html=False,
+                            verbose_output=False,
+                            script_output_in_ascii=True,
+                            script_output_banner_string="[markdown-to-google-sites] "):
+    
+    def script_print(print_string, is_verbose=False, show_banner=True):
+        def clean_string_to_ascii(string):
+            return unicodedata.normalize('NFKD', string).encode('ascii', 'ignore')
+        
+        if script_output_in_ascii:
+            output_string = clean_string_to_ascii(print_string)
+        else:
+            output_string = print_string
+    
+        if show_banner:
+            print("{0}{1}".format(script_output_banner_string, output_string))
+        else:
+            print(output_string)
 
     def markdown_file_to_html_string(input_filename,
                                      print_file_contents=False):
@@ -21,8 +35,6 @@ def markdown_to_google_docs(input_filename, print_markdown_html=False,
         def string_from_file(filename):
             f = open(filename)
             raw_string_from_file = f.read()
-            #f = codecs.open(filename, encoding='utf-8')
-            #return raw_string_from_file.encode('utf8')
             return raw_string_from_file
             
         def markdown_string_to_html(md_string):
@@ -34,14 +46,14 @@ def markdown_to_google_docs(input_filename, print_markdown_html=False,
         html_string = markdown_string_to_html(md_string)
 
         if print_file_contents:
-            print(cleanup_string_for_console(html_string))
+            script_print(html_string, show_banner=False)
         
         return html_string
     #
     html_string = markdown_file_to_html_string(input_filename)
 
     if print_markdown_html:
-        print(cleanup_string_for_console(html_string))
+        script_print(html_string, show_banner=False)
 
     return 1
 
@@ -56,7 +68,7 @@ def main(argv=None):
         try:
             opts, args = getopt.getopt(argv[1:], "h", ["help"])
 
-            return markdown_to_google_docs_script_entry("mdtest.md", True)
+            return markdown_to_google_sites("mdtest.md", True)
         except getopt.error, msg:
              raise Usage(msg)
         # more code, unchanged
