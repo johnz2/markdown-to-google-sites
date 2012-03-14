@@ -10,6 +10,17 @@ ABEngine is used in MetalStorm: Wingman, MetalStorm 2: Aces, and Racecraft.
 
 ## Code Standards
 
+### Do everything
+
+* Foo bar cat
+* Mouse scout
+
+Hello:
+
+    this is code;
+    ABVector4 test;
+    f32_t val = test.manitude();
+
 Please adopt the [programming conventions we use][code-standards] for the engine.
 
 [code-standards]: https://sites.google.com/a/z2live.com/metalstorm/engineering/code-standards
@@ -42,9 +53,7 @@ Notes from John Jensen.
 
 +   There is now an engine Xcode project (`abengine.xcodeproj`), which should
     be used instead of including engine code in product targets directly.
-
 +   A new resource management system is a centralized facility to load content.
-
 +   New utility functionality such as logging and debugging variables.
 
 ### Work in development
