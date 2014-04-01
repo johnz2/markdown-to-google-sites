@@ -1,27 +1,18 @@
-# ABEngine
 
-ABEngine is used in MetalStorm: Wingman, MetalStorm 2: Aces, and Racecraft.
+# Code Standards
 
-## Contacts
-
-*   Aces: John Jensen, <john@z2live.com>
-*   Racecraft: Marcel Barker, <marcel@z2live.com>
-*   Z2Live: Ryan Murphy, <ryan@z2live.com>
-
-## Code Standards
-
-### Do everything
+## Do everything
 
 * Foo bar cat
 * Mouse scout
 
-Hello:
+### Hello:
 
     this is code;
-    ABVector4 test;
+    Vector4 test;
     f32_t val = test.manitude();
 
-asfafs
+### asfafs
 
     this is code;
     ABVector4 test;
@@ -36,9 +27,9 @@ asfafs
 
 Please adopt the [programming conventions we use][code-standards] for the engine.
 
-[code-standards]: https://sites.google.com/a/z2live.com/metalstorm/engineering/code-standards "ABEngine Code Standards"
+[code-standards]: https://example.com/info/standards.html "Engine Code Standards"
 
-# Engine Changelog
+# Changelog
 
 Initially, the engine changelog is grouped into major releases but if since we
 are to work on the `master` branch at the same time, we may have to use ongoing
