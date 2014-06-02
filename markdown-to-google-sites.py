@@ -3,6 +3,7 @@
 import sys
 import getopt
 import glob
+from os import path
 
 import codecs
 import unicodedata
@@ -129,7 +130,8 @@ def markdown_to_google_sites(input_filename, print_markdown_html=False,
         #
         script_print("done!")
 
-        save_file = codecs.open(filename+'.html', mode='w', encoding='utf-8')
+        save_name = path.splitext(filename)[0]
+        save_file = codecs.open(save_name+'.html', mode='w', encoding='utf-8')
         save_file.write(html)
         save_file.close()
 
