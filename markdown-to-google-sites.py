@@ -2,10 +2,12 @@
 
 import sys
 import getopt
+import glob
 
 import codecs
 import unicodedata
 import markdown
+
 
 from markdown.util import etree
 
@@ -97,9 +99,9 @@ def markdown_to_google_sites(input_filename, print_markdown_html=False,
                 else:
                     print(output_string)
 
-    def read_file_into_html():
+    def read_file_into_html(filename):
         # load file
-        input_file = codecs.open(input_filename, mode="r", encoding="utf-8")
+        input_file = codecs.open(filename, mode="r", encoding="utf-8")
         text       = input_file.read()
 
         # convert text to html
@@ -112,19 +114,25 @@ def markdown_to_google_sites(input_filename, print_markdown_html=False,
         return html
        
     # get html
-    script_print("reading {0}...".format(input_filename))
-    html = read_file_into_html()
+    for filename in glob.glob(input_filename):
+        script_print("reading {0}...".format(filename))
+        html = read_file_into_html(filename)
     
-    if print_markdown_html:
-        script_print(html, show_banner=False, is_html_output=True)
+        if print_markdown_html:
+            script_print(html, show_banner=False, is_html_output=True)
 
-    script_print("successfully converted to html...")
+        script_print("successfully converted to html...")
 
-    # todo: upload to google sites
-    script_print("todo: upload to google sites!")
+        # todo: upload to google sites
+        script_print("todo: upload to google sites!")
     
-    #
-    script_print("done!")
+        #
+        script_print("done!")
+
+        save_file = codecs.open(filename+'.html', mode='w', encoding='utf-8')
+        save_file.write(html)
+        save_file.close()
+
     return 1
 
 class Usage(Exception):
@@ -138,7 +146,7 @@ def main(argv=None):
         try:
             opts, args = getopt.getopt(argv[1:], "h", ["help"])
 
-            return markdown_to_google_sites("mdtest.md", False)
+            return markdown_to_google_sites("*.md", False)
         except getopt.error, msg:
              raise Usage(msg)
         # more code, unchanged
