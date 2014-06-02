@@ -148,7 +148,7 @@ def main(argv=None):
         try:
             opts, args = getopt.getopt(argv[1:], "h", ["help"])
 
-            return markdown_to_google_sites("*.md", False)
+            return markdown_to_google_sites(path.join("files","*.md"), False)
         except getopt.error, msg:
              raise Usage(msg)
         # more code, unchanged
